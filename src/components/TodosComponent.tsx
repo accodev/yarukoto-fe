@@ -1,12 +1,12 @@
 import { Todo } from '../types';
 import { todos } from '../data';
 
-function orderTodosByDate(todos: Todo[]) {
-  return todos.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+function orderTodosByOrder(todos: Todo[]) {
+  return todos.sort((a, b) => a.order - b.order);
 }
 
 function TodosComponent() {
-  const orderedTodos = orderTodosByDate(todos);
+  const orderedTodos = orderTodosByOrder(todos);
 
   return (
     <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
