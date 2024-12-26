@@ -18,7 +18,7 @@ function TodosComponent() {
               <p className='whitespace-pre-wrap pb-5'>
                   {todo.content}
               </p>
-              <p className='text-xs text-gray-500'>
+              <p className='text-xs text-gray-500 text-right'>
                   {todo.date.toLocaleString()}
               </p>
           </div>
