@@ -4,6 +4,7 @@ interface Todo {
     title?: string;
     date: Date;
     content: string;
+    order: number;
 }
 
 export type { Todo };

@@ -54,12 +54,13 @@ function generateRandomTodos(count: number): Todo[] {
       id: `${i + 1}`,
       color: getRandomColor(),
       content: getRandomContent(),
-      title: getRandomInt(0, 1) ? getRandomTitle() : undefined
+      title: getRandomInt(0, 1) ? getRandomTitle() : undefined,
+      order: i + 1
     });
   }
   return todos;
 }
 
-let todos: Todo[] = generateRandomTodos(12);
+let todos: Todo[] = generateRandomTodos(24);
 
 export { todos };
