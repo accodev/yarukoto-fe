@@ -1,12 +1,10 @@
-import { TodoComponent } from '../components/TodoComponent';
+import { TodosComponent } from '../components/TodosComponent';
 import { todos } from '../data';
 
 export default function Home() {
   return (
     <div className='container mx-auto'>
-        {todos.map(todo => (
-          <TodoComponent {...todo} />
-        ))}
+        <TodosComponent/>
     </div>
   );
 }
