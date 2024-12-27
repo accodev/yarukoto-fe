@@ -2,10 +2,9 @@
 
 import { Note as NoteType } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPalette } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-
-const colors = ["indigo", "yellow", "blue", "purple", "green", "red"];
+import { ColorPicker } from './ColorPicker';
 
 interface NewNoteProps {
   onAddNote: (newNote: NoteType) => void;
@@ -14,9 +13,8 @@ interface NewNoteProps {
 function NewNote({ onAddNote }: NewNoteProps) {
   const [draftContent, setDraftContent] = useState('');
   const [draftTitle, setDraftTitle] = useState('');
-  const [draftColor, setDraftColor] = useState(colors[0]);
+  const [draftColor, setDraftColor] = useState('indigo');
   const [isDraftVisible, setIsDraftVisible] = useState(false);
-  const [isColorPickerVisible, setIsColorPickerVisible] = useState(false);
 
   function handleAddNote() {
     if (draftContent.trim()) {
@@ -31,9 +29,8 @@ function NewNote({ onAddNote }: NewNoteProps) {
       onAddNote(newNote);
       setDraftContent('');
       setDraftTitle('');
-      setDraftColor(colors[0]);
+      setDraftColor('indigo');
       setIsDraftVisible(false);
-      setIsColorPickerVisible(false);
     }
   }
 
@@ -41,6 +38,7 @@ function NewNote({ onAddNote }: NewNoteProps) {
     <div className={`mb-4 p-4 rounded-lg shadow hover:shadow-md transition-shadow bg-${draftColor}-100 relative`}>
       {isDraftVisible && (
         <>
+          {/* Title input */}
           <input
             className='w-full p-2 mb-2 rounded'
             placeholder='Title'
@@ -49,6 +47,7 @@ function NewNote({ onAddNote }: NewNoteProps) {
           />
         </>
       )}
+      {/* Content textarea */}
       <textarea
         className='w-full p-2 rounded resize-none'
         placeholder='Take a note...'
@@ -58,25 +57,9 @@ function NewNote({ onAddNote }: NewNoteProps) {
       />
       {isDraftVisible && (
         <div className='flex justify-end mt-2'>
-          <div className='relative z-10'>
-            <button
-              className='text-slate-500 transition-colors duration-200 hover:text-black'
-              onClick={() => setIsColorPickerVisible(!isColorPickerVisible)}
-            >
-              <FontAwesomeIcon icon={faPalette} />
-            </button>
-            {isColorPickerVisible && (
-              <div className='absolute bottom-full mb-2 flex space-x-2 bg-white p-2 rounded shadow'>
-                {colors.map(color => (
-                  <button
-                    key={color}
-                    className={`w-6 h-6 rounded-full ${draftColor === color ? `ring-2 ring-indigo-100` : ''} bg-${color}-100`}
-                    onClick={() => setDraftColor(color)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Color picker */}
+          <ColorPicker selectedColor={draftColor} onChangeColor={setDraftColor} />
+          {/* Add note button */}
           <button onClick={handleAddNote} className="text-slate-500 transition-colors duration-200 hover:text-black px-2">
             <FontAwesomeIcon icon={faPlus} />
           </button>
