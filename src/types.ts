@@ -2,7 +2,6 @@ interface User {
     id: string;
     name: string;
     email: string;
-    notes: Note[];
 }
 
 interface Note {
