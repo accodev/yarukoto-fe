@@ -62,12 +62,12 @@ function generateRandomNotes(count: number, userId: string): Note[] {
   return notes;
 }
 
-let user: User = {
+const user: User = {
   id: "22371a1d-8420-4c5c-a200-8c6ab14e1e8f",
   name: "John Doe",
   email: "john.doe@gmail.com"
 };
 
-let notes: Note[] = generateRandomNotes(24, user.id);
+const notes: Note[] = generateRandomNotes(24, user.id);
 
 export { user, notes };

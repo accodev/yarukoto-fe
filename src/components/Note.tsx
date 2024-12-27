@@ -1,9 +1,6 @@
-'use client';
-
 import { Note as NoteType } from '@/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faArchive } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import { ColorPicker } from './ColorPicker';
 
 interface NoteProps {
@@ -14,8 +11,6 @@ interface NoteProps {
 }
 
 function Note({ note, onDelete, onArchive, onChangeColor }: NoteProps) {
-  const [activeColorPicker, setActiveColorPicker] = useState<string | null>(null);
-
   return (
     <div key={note.id} className={`break-inside-avoid mb-4 p-4 rounded-lg shadow hover:shadow-md transition-shadow bg-${note.color}-100 relative group`}>
       <div className="flex justify-between items-center mb-2">

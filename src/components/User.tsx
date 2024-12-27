@@ -24,7 +24,7 @@ function User({ onLogin }: UserProps) {
       } else {
         setError('Invalid user ID');
       }
-    } catch (err) {
+    } catch {
       setError('Error logging in');
     }
   }
@@ -35,7 +35,7 @@ function User({ onLogin }: UserProps) {
       try {
         await registerUser({ id: newUserId, name, email });
         setRegisteredUserId(newUserId);
-      } catch (err) {
+      } catch {
         setError('Error registering user');
       }
     } else {
