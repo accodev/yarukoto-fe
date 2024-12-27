@@ -18,7 +18,7 @@ export async function getNotesByUserId(userId: string): Promise<Note[]> {
   // Mocked API call to get notes by user ID
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(mockNotes);
+      resolve(mockNotes.filter(note => note.userId === userId));
     }, 500);
   });
 }

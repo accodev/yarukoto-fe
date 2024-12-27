@@ -48,7 +48,7 @@ function Notes({ userId }: NotesProps) {
 
   return (
     <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
-      <NewNote onAddNote={handleAddNote} />
+      <NewNote onAddNote={handleAddNote} userId={userId} />
       {orderedNotes.map(note => (
         <Note
           key={note.id}

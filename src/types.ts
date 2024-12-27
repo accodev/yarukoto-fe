@@ -6,6 +6,7 @@ interface User {
 
 interface Note {
     id: string;
+    userId: string;
     order: number;
     title?: string;
     date: Date;

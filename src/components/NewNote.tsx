@@ -8,9 +8,10 @@ import { ColorPicker } from './ColorPicker';
 
 interface NewNoteProps {
   onAddNote: (newNote: NoteType) => void;
+  userId: string;
 }
 
-function NewNote({ onAddNote }: NewNoteProps) {
+function NewNote({ onAddNote, userId }: NewNoteProps) {
   const [draftContent, setDraftContent] = useState('');
   const [draftTitle, setDraftTitle] = useState('');
   const [draftColor, setDraftColor] = useState('indigo');
@@ -20,6 +21,7 @@ function NewNote({ onAddNote }: NewNoteProps) {
     if (draftContent.trim()) {
       const newNote: NoteType = {
         id: `${Date.now()}`,
+        userId: userId,
         color: draftColor,
         content: draftContent,
         title: draftTitle || undefined,

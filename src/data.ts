@@ -46,12 +46,13 @@ function getRandomDate(start: Date, end: Date) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
-function generateRandomNotes(count: number): Note[] {
+function generateRandomNotes(count: number, userId: string): Note[] {
   const notes: Note[] = [];
   for (let i = 0; i < count; i++) {
     notes.push({
       date: getRandomDate(new Date(2020, 0, 1), new Date()),
       id: `${i + 1}`,
+      userId: userId,
       color: getRandomColor(),
       content: getRandomContent(),
       title: getRandomInt(0, 1) ? getRandomTitle() : undefined,
@@ -67,6 +68,6 @@ let user: User = {
   email: "john.doe@gmail.com"
 };
 
-let notes: Note[] = generateRandomNotes(24);
+let notes: Note[] = generateRandomNotes(24, user.id);
 
 export { user, notes };
