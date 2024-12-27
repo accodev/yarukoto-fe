@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Notes } from '@/components/Notes';
-import { Login } from '@/components/Login';
+import { User } from '@/components/User';
 
 export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -13,7 +13,11 @@ export default function Home() {
 
   return (
     <div className='container mx-auto h-dvh p-5'>
-      {userId ? <Notes userId={userId} /> : <Login onLogin={handleLogin} />}
+      {userId ? (
+        <Notes userId={userId} />
+      ) : (
+        <User onLogin={handleLogin} />
+      )}
     </div>
   );
 }

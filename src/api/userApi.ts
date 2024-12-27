@@ -22,3 +22,15 @@ export async function getNotesByUserId(userId: string): Promise<Note[]> {
     }, 500);
   });
 }
+
+export async function registerUser(newUser: User): Promise<void> {
+  // Mocked API call to register a new user
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      mockUser.id = newUser.id;
+      mockUser.name = newUser.name;
+      mockUser.email = newUser.email;
+      resolve();
+    }, 500);
+  });
+}
