@@ -23,7 +23,7 @@ function ColorPicker({ selectedColor, onChangeColor }: ColorPickerProps) {
         <FontAwesomeIcon icon={faPalette} />
       </button>
       {isColorPickerVisible && (
-        <div className='absolute bottom-full mb-2 flex space-x-2 bg-white p-2 rounded shadow'>
+        <div className='absolute bottom-full mb-2 flex space-x-2 bg-white p-2 rounded shadow right-0'>
           {colors.map(color => (
             <button
               key={color}
