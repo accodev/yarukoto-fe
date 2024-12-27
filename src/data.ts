@@ -1,4 +1,4 @@
-import { Todo } from "./types";
+import { Note } from "./types";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -46,10 +46,10 @@ function getRandomDate(start: Date, end: Date) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
-function generateRandomTodos(count: number): Todo[] {
-  const todos: Todo[] = [];
+function generateRandomNotes(count: number): Note[] {
+  const notes: Note[] = [];
   for (let i = 0; i < count; i++) {
-    todos.push({
+    notes.push({
       date: getRandomDate(new Date(2020, 0, 1), new Date()),
       id: `${i + 1}`,
       color: getRandomColor(),
@@ -58,9 +58,9 @@ function generateRandomTodos(count: number): Todo[] {
       order: i + 1
     });
   }
-  return todos;
+  return notes;
 }
 
-let todos: Todo[] = generateRandomTodos(24);
+let notes: Note[] = generateRandomNotes(24);
 
-export { todos };
+export { notes };

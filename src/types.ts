@@ -1,10 +1,10 @@
-interface Todo {
+interface Note {
     id: string;
-    color: string;
+    order: number;
     title?: string;
     date: Date;
     content: string;
-    order: number;
+    color: string;
 }
 
-export type { Todo };
+export type { Note };
