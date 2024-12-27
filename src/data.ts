@@ -64,8 +64,9 @@ function generateRandomNotes(count: number): Note[] {
 let user: User = {
   id: "1",
   name: "John Doe",
-  email: "john.doe@gmail.com",
-  notes: generateRandomNotes(24)
-}
+  email: "john.doe@gmail.com"
+};
 
-export { user };
+let notes: Note[] = generateRandomNotes(24);
+
+export { user, notes };

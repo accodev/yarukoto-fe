@@ -1,17 +1,27 @@
 'use client';
 
 import { Note as NoteType } from '@/types';
-import { user } from '@/data';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
+import { getUserById, getNotesByUserId } from '../api/userApi';
 
 function orderNotesByOrder(notes: NoteType[]) {
   return notes.sort((a, b) => a.order - b.order);
 }
 
 function Notes() {
-  const [orderedNotes, setOrderedNotes] = useState(orderNotesByOrder(user.notes));
+  const [orderedNotes, setOrderedNotes] = useState<NoteType[]>([]);
+  const userId = "1"; // Example user ID
+
+  useEffect(() => {
+    async function fetchData() {
+      const user = await getUserById(userId);
+      const notes = await getNotesByUserId(user.id);
+      setOrderedNotes(orderNotesByOrder(notes));
+    }
+    fetchData();
+  }, []);
 
   function handleDelete(id: string) {
     setOrderedNotes(orderedNotes.filter(note => note.id !== id));
