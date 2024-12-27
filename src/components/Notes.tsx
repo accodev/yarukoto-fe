@@ -1,7 +1,7 @@
 'use client';
 
 import { Note as NoteType } from '@/types';
-import { notes as initialNotes } from '@/data';
+import { user } from '@/data';
 import { useState } from 'react';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
@@ -11,7 +11,7 @@ function orderNotesByOrder(notes: NoteType[]) {
 }
 
 function Notes() {
-  const [orderedNotes, setOrderedNotes] = useState(orderNotesByOrder(initialNotes));
+  const [orderedNotes, setOrderedNotes] = useState(orderNotesByOrder(user.notes));
 
   function handleDelete(id: string) {
     setOrderedNotes(orderedNotes.filter(note => note.id !== id));

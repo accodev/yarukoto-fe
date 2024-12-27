@@ -1,3 +1,10 @@
+interface User {
+    id: string;
+    name: string;
+    email: string;
+    notes: Note[];
+}
+
 interface Note {
     id: string;
     order: number;
@@ -7,4 +14,4 @@ interface Note {
     color: string;
 }
 
-export type { Note };
+export type { User, Note };

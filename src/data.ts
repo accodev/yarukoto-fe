@@ -1,4 +1,4 @@
-import { Note } from "./types";
+import { User, Note } from "./types";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -61,6 +61,11 @@ function generateRandomNotes(count: number): Note[] {
   return notes;
 }
 
-let notes: Note[] = generateRandomNotes(24);
+let user: User = {
+  id: "1",
+  name: "John Doe",
+  email: "john.doe@gmail.com",
+  notes: generateRandomNotes(24)
+}
 
-export { notes };
+export { user };
