@@ -13,13 +13,8 @@ Yarukoto is a note-taking application that allows users to easily share notes us
 ## Screenshots
 
 ![Login screen](./docs/login.png)
-
 ![Registering first step](./docs/register-1.png)
-
 ![Registering second step](./docs/register-2.png)
-
-![Registering third step](./docs/register-3.png)
-
 ![Notes](./docs/notes.png)
 
 ## Usage

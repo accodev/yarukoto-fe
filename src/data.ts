@@ -1,4 +1,4 @@
-import { User, Note } from "./types";
+import { Workspace, Note } from "./types";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -62,12 +62,12 @@ function generateRandomNotes(count: number, userId: string): Note[] {
   return notes;
 }
 
-const user: User = {
+const workspace: Workspace = {
   id: "22371a1d-8420-4c5c-a200-8c6ab14e1e8f",
   name: "John Doe",
   email: "john.doe@gmail.com"
 };
 
-const notes: Note[] = generateRandomNotes(24, user.id);
+const notes: Note[] = generateRandomNotes(24, workspace.id);
 
-export { user, notes };
+export { workspace, notes };

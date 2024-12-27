@@ -4,29 +4,29 @@ import { Note as NoteType } from '@/types';
 import { useState, useEffect } from 'react';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
-import { getUserById, getNotesByUserId } from '../api/userApi';
+import { getWorkspaceById, getNotesByWorkspaceId } from '../api/workspaceApi';
 
 function orderNotesByOrder(notes: NoteType[]) {
   return notes.sort((a, b) => a.order - b.order);
 }
 
 interface NotesProps {
-  userId: string;
+  workspaceId: string;
 }
 
-function Notes({ userId }: NotesProps) {
+function Notes({ workspaceId }: NotesProps) {
   const [orderedNotes, setOrderedNotes] = useState<NoteType[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const user = await getUserById(userId);
-      if (user) {
-        const notes = await getNotesByUserId(user.id);
+      const workspace = await getWorkspaceById(workspaceId);
+      if (workspace) {
+        const notes = await getNotesByWorkspaceId(workspace.id);
         setOrderedNotes(orderNotesByOrder(notes));
       }
     }
     fetchData();
-  }, [userId]);
+  }, [workspaceId]);
 
   function handleDelete(id: string) {
     setOrderedNotes(orderedNotes.filter(note => note.id !== id));
@@ -49,7 +49,7 @@ function Notes({ userId }: NotesProps) {
   return (
     <div>
       <div className="flex justify-center mb-4">
-        <NewNote onAddNote={handleAddNote} userId={userId} />
+        <NewNote onAddNote={handleAddNote} workspaceId={workspaceId} />
       </div>
       <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
         {orderedNotes.map(note => (

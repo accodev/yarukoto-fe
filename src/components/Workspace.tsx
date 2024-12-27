@@ -1,28 +1,28 @@
 'use client';
 
 import { useState } from 'react';
-import { getUserById, registerUser } from '../api/userApi';
+import { getWorkspaceById, registerWorkspace } from '../api/workspaceApi';
 import { v4 as uuidv4 } from 'uuid';
 
-interface UserProps {
-  onLogin: (userId: string) => void;
+interface WorkspaceProps {
+  onLogin: (workspaceId: string) => void;
 }
 
-function User({ onLogin }: UserProps) {
-  const [userId, setUserId] = useState('');
+function Workspace({ onLogin }: WorkspaceProps) {
+  const [workspaceId, setWorkspaceId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
-  const [registeredUserId, setRegisteredUserId] = useState<string | null>(null);
+  const [registeredWorkspaceId, setRegisteredWorkspaceId] = useState<string | null>(null);
 
   async function handleLogin() {
     try {
-      const user = await getUserById(userId);
-      if (user) {
-        onLogin(userId);
+      const workspace = await getWorkspaceById(workspaceId);
+      if (workspace) {
+        onLogin(workspaceId);
       } else {
-        setError('Invalid user ID');
+        setError('Invalid workspace ID');
       }
     } catch {
       setError('Error logging in');
@@ -31,12 +31,12 @@ function User({ onLogin }: UserProps) {
 
   async function handleRegister() {
     if (name.trim() && email.trim()) {
-      const newUserId = uuidv4();
+      const newWorkspaceId = uuidv4();
       try {
-        await registerUser({ id: newUserId, name, email });
-        setRegisteredUserId(newUserId);
+        await registerWorkspace({ id: newWorkspaceId, name, email });
+        setRegisteredWorkspaceId(newWorkspaceId);
       } catch {
-        setError('Error registering user');
+        setError('Error registering workspace');
       }
     } else {
       setError('Name and email are required');
@@ -46,12 +46,12 @@ function User({ onLogin }: UserProps) {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
-      {registeredUserId ? (
+      {registeredWorkspaceId ? (
         <div className="text-center">
-          <p className="mb-2">Registration successful! Your user ID is:</p>
-          <p className="font-bold">{registeredUserId}</p>
-          <p className="mt-4">Please save this user ID to log in later.</p>
-          <button onClick={() => { setIsRegistering(false); setRegisteredUserId(null)} } className="p-2 bg-blue-500 text-white rounded mt-4">
+          <p className="mb-2">Registration successful! Your workspace ID is:</p>
+          <p className="font-bold">{registeredWorkspaceId}</p>
+          <p className="mt-4">Please save this workspace ID to log in later.</p>
+          <button onClick={() => { setIsRegistering(false); setRegisteredWorkspaceId(null)} } className="p-2 bg-blue-500 text-white rounded mt-4">
             Proceed to Login
           </button>
         </div>
@@ -87,9 +87,9 @@ function User({ onLogin }: UserProps) {
             <>
               <input
                 type="text"
-                placeholder="Enter your user ID"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
+                placeholder="Enter your workspace ID"
+                value={workspaceId}
+                onChange={(e) => setWorkspaceId(e.target.value)}
                 className="p-2 border rounded mb-2"
               />
               {error && <p className="text-red-500 mb-2">{error}</p>}
@@ -109,4 +109,4 @@ function User({ onLogin }: UserProps) {
   );
 }
 
-export { User };
+export { Workspace };

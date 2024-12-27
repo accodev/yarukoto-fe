@@ -1,4 +1,4 @@
-interface User {
+interface Workspace {
     id: string;
     name: string;
     email: string;
@@ -14,4 +14,4 @@ interface Note {
     color: string;
 }
 
-export type { User, Note };
+export type { Workspace, Note };

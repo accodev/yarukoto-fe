@@ -2,23 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import { Notes } from '@/components/Notes';
-import { User } from '@/components/User';
+import { Workspace } from '@/components/Workspace';
 
 export default function Home() {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [workspaceId, setWorkspaceId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const savedUserId = localStorage.getItem('userId');
-    if (savedUserId) {
-      setUserId(savedUserId);
+    const savedWorkspaceId = localStorage.getItem('workspaceId');
+    if (savedWorkspaceId) {
+      setWorkspaceId(savedWorkspaceId);
     }
     setIsLoading(false);
   }, []);
 
-  function handleLogin(userId: string) {
-    setUserId(userId);
-    localStorage.setItem('userId', userId);
+  function handleLogin(workspaceId: string) {
+    setWorkspaceId(workspaceId);
+    localStorage.setItem('workspaceId', workspaceId);
   }
 
   if (isLoading) {
@@ -27,10 +27,10 @@ export default function Home() {
 
   return (
     <div className='container mx-auto h-dvh p-5'>
-      {userId ? (
-        <Notes userId={userId} />
+      {workspaceId ? (
+        <Notes workspaceId={workspaceId} />
       ) : (
-        <User onLogin={handleLogin} />
+        <Workspace onLogin={handleLogin} />
       )}
     </div>
   );
