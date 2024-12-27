@@ -4,6 +4,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 This application is a note-taking app that allows users to create, edit, and manage their notes. Users can add titles, content, and select colors for their notes. The notes can be archived or deleted, and the color of the notes can be changed.
 
+## Screenshots
+
+![Login screen](./docs/login.png)
+
+![Registering first step](./docs/register-1.png)
+
+![Registering second step](./docs/register-2.png)
+
+![Registering third step](./docs/register-3.png)
+
+![Notes](./docs/notes.png)
+
+
 ## Getting Started
 
 First, run the development server:
