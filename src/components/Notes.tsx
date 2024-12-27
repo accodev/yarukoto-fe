@@ -47,17 +47,21 @@ function Notes({ userId }: NotesProps) {
   }
 
   return (
-    <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
-      <NewNote onAddNote={handleAddNote} userId={userId} />
-      {orderedNotes.map(note => (
-        <Note
-          key={note.id}
-          note={note}
-          onDelete={handleDelete}
-          onArchive={handleArchive}
-          onChangeColor={handleChangeColor}
-        />
-      ))}
+    <div>
+      <div className="flex justify-center mb-4">
+        <NewNote onAddNote={handleAddNote} userId={userId} />
+      </div>
+      <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
+        {orderedNotes.map(note => (
+          <Note
+            key={note.id}
+            note={note}
+            onDelete={handleDelete}
+            onArchive={handleArchive}
+            onChangeColor={handleChangeColor}
+          />
+        ))}
+      </div>
     </div>
   );
 }
