@@ -74,12 +74,14 @@ function User({ onLogin }: UserProps) {
                 className="p-2 border rounded mb-2"
               />
               {error && <p className="text-red-500 mb-2">{error}</p>}
-              <button onClick={handleRegister} className="p-2 bg-blue-500 text-white rounded">
-                Register
-              </button>
-              <button onClick={() => setIsRegistering(false)} className="p-2 bg-gray-500 text-white rounded mt-2">
-                Back to Login
-              </button>
+              <div className="flex space-x-2">
+                <button onClick={handleRegister} className="p-2 bg-blue-500 text-white rounded">
+                  Register
+                </button>
+                <button onClick={() => setIsRegistering(false)} className="p-2 bg-gray-500 text-white rounded">
+                  Back to Login
+                </button>
+              </div>
             </>
           ) : (
             <>
@@ -91,12 +93,14 @@ function User({ onLogin }: UserProps) {
                 className="p-2 border rounded mb-2"
               />
               {error && <p className="text-red-500 mb-2">{error}</p>}
-              <button onClick={handleLogin} className="p-2 bg-blue-500 text-white rounded">
-                Login
-              </button>
-              <button onClick={() => setIsRegistering(true)} className="p-2 bg-gray-500 text-white rounded mt-2">
-                Register
-              </button>
+              <div className="flex space-x-2">
+                <button onClick={handleLogin} className="p-2 bg-blue-500 text-white rounded">
+                  Login
+                </button>
+                <button onClick={() => setIsRegistering(true)} className="p-2 bg-gray-500 text-white rounded">
+                  Register
+                </button>
+              </div>
             </>
           )}
         </>

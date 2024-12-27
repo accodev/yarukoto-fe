@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Notes } from '@/components/Notes';
 import { User } from '@/components/User';
 
 export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
 
+  useEffect(() => {
+    const savedUserId = localStorage.getItem('userId');
+    if (savedUserId) {
+      setUserId(savedUserId);
+    }
+  }, []);
+
   function handleLogin(userId: string) {
     setUserId(userId);
+    localStorage.setItem('userId', userId);
   }
 
   return (
