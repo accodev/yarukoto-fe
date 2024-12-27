@@ -10,18 +10,23 @@ function orderNotesByOrder(notes: NoteType[]) {
   return notes.sort((a, b) => a.order - b.order);
 }
 
-function Notes() {
+interface NotesProps {
+  userId: string;
+}
+
+function Notes({ userId }: NotesProps) {
   const [orderedNotes, setOrderedNotes] = useState<NoteType[]>([]);
-  const userId = "1"; // Example user ID
 
   useEffect(() => {
     async function fetchData() {
       const user = await getUserById(userId);
-      const notes = await getNotesByUserId(user.id);
-      setOrderedNotes(orderNotesByOrder(notes));
+      if (user) {
+        const notes = await getNotesByUserId(user.id);
+        setOrderedNotes(orderNotesByOrder(notes));
+      }
     }
     fetchData();
-  }, []);
+  }, [userId]);
 
   function handleDelete(id: string) {
     setOrderedNotes(orderedNotes.filter(note => note.id !== id));
