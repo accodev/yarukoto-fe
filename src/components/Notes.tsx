@@ -1,7 +1,7 @@
 'use client';
 
-import { Note as NoteType } from '../types';
-import { notes as initialNotes } from '../data';
+import { Note as NoteType } from '@/types';
+import { notes as initialNotes } from '@/data';
 import { useState } from 'react';
 import { NewNote } from './NewNote';
 import { Note } from './Note';

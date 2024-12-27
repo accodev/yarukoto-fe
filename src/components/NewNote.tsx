@@ -1,6 +1,6 @@
 'use client';
 
-import { Note as NoteType } from '../types';
+import { Note as NoteType } from '@/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
