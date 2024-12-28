@@ -1,7 +1,7 @@
 import { Note as NoteType } from '@/lib/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faArchive } from '@fortawesome/free-solid-svg-icons';
-import { ColorPicker } from './ColorPicker';
+import { ColorPicker } from '../generic/ColorPicker';
 
 interface NoteProps {
   note: NoteType;

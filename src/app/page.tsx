@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Notes } from '@/components/Notes';
-import { Workspace } from '@/components/Workspace';
+import { Notes } from '@/components/notes/Notes';
+import { Workspace } from '@/components/workspace/Workspace';
 
 export default function Home() {
   const [workspaceId, setWorkspaceId] = useState<string | null>(null);
