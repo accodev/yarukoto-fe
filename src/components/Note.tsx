@@ -1,4 +1,4 @@
-import { Note as NoteType } from '@/types';
+import { Note as NoteType } from '@/lib/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faArchive } from '@fortawesome/free-solid-svg-icons';
 import { ColorPicker } from './ColorPicker';

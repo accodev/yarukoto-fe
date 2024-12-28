@@ -1,10 +1,10 @@
 'use client';
 
-import { Note as NoteType } from '@/types';
+import { Note as NoteType } from '@/lib/types';
 import { useState, useEffect } from 'react';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
-import { getWorkspaceById, getNotesByWorkspaceId } from '../api/workspaceApi';
+import { getNotesByWorkspaceId } from '@/lib/api/notes';
 
 function orderNotesByOrder(notes: NoteType[]) {
   return notes.sort((a, b) => a.order - b.order);
@@ -19,11 +19,8 @@ function Notes({ workspaceId }: NotesProps) {
 
   useEffect(() => {
     async function fetchData() {
-      const workspace = await getWorkspaceById(workspaceId);
-      if (workspace) {
-        const notes = await getNotesByWorkspaceId(workspace.id);
-        setOrderedNotes(orderNotesByOrder(notes));
-      }
+      const notes = await getNotesByWorkspaceId(workspaceId);
+      setOrderedNotes(orderNotesByOrder(notes));
     }
     fetchData();
   }, [workspaceId]);

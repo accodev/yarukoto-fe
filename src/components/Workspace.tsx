@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getWorkspaceById, registerWorkspace } from '../api/workspaceApi';
+import { getWorkspaceById, registerWorkspace } from '@/lib/api/workspace';
 import { v4 as uuidv4 } from 'uuid';
 
 interface WorkspaceProps {
