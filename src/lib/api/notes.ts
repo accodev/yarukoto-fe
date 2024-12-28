@@ -4,12 +4,15 @@ import { env } from '@/lib/env';
 const API_URL = env().API_URL;
 
 export async function getNotesByWorkspaceId(workspaceId: string): Promise<Note[]> {
+  console.log(`GET request to: ${API_URL}/workspace/${workspaceId}/notes`);
   const response = await fetch(`${API_URL}/workspace/${workspaceId}/notes`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
     },
   });
+
+  console.log(`Response status: ${response.status}`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch notes');
@@ -19,6 +22,7 @@ export async function getNotesByWorkspaceId(workspaceId: string): Promise<Note[]
 }
 
 export async function createNote(note: Note): Promise<void> {
+  console.log(`POST request to: ${API_URL}/workspace/${note.workspaceId}/notes`);
   const response = await fetch(`${API_URL}/workspace/${note.workspaceId}/notes`, {
     method: 'POST',
     headers: {
@@ -26,6 +30,8 @@ export async function createNote(note: Note): Promise<void> {
     },
     body: JSON.stringify(note),
   });
+
+  console.log(`Response status: ${response.status}`);
 
   if (!response.ok) {
     throw new Error('Failed to create note');
@@ -35,12 +41,15 @@ export async function createNote(note: Note): Promise<void> {
 }
 
 export async function getNoteById(workspaceId: string, noteId: string): Promise<Note> {
+  console.log(`GET request to: ${API_URL}/workspace/${workspaceId}/notes/${noteId}`);
   const response = await fetch(`${API_URL}/workspace/${workspaceId}/notes/${noteId}`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
     },
   });
+
+  console.log(`Response status: ${response.status}`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch note');
