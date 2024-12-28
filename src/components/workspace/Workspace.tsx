@@ -25,7 +25,7 @@ function Workspace({ onLogin }: WorkspaceProps) {
         setError('Invalid workspace ID');
       }
     } catch {
-      setError('Error logging in');
+      setError('Error joining workspace');
     }
   }
 
@@ -45,14 +45,14 @@ function Workspace({ onLogin }: WorkspaceProps) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
+      <h1 className="text-2xl mb-4">{isRegistering ? 'Register' : 'Join'}</h1>
       {registeredWorkspaceId ? (
         <div className="text-center">
           <p className="mb-2">Registration successful! Your workspace ID is:</p>
           <p className="font-bold">{registeredWorkspaceId}</p>
           <p className="mt-4">Please save this workspace ID to log in later.</p>
           <button onClick={() => { setIsRegistering(false); setRegisteredWorkspaceId(null)} } className="p-2 bg-blue-500 text-white rounded mt-4">
-            Proceed to Login
+            Proceed to Join
           </button>
         </div>
       ) : (
@@ -79,7 +79,7 @@ function Workspace({ onLogin }: WorkspaceProps) {
                   Register
                 </button>
                 <button onClick={() => setIsRegistering(false)} className="p-2 bg-gray-500 text-white rounded">
-                  Back to Login
+                  Back to Join
                 </button>
               </div>
             </>
@@ -95,7 +95,7 @@ function Workspace({ onLogin }: WorkspaceProps) {
               {error && <p className="text-red-500 mb-2">{error}</p>}
               <div className="flex space-x-2">
                 <button onClick={handleLogin} className="p-2 bg-blue-500 text-white rounded">
-                  Login
+                  Join
                 </button>
                 <button onClick={() => setIsRegistering(true)} className="p-2 bg-gray-500 text-white rounded">
                   Register
