@@ -6,7 +6,7 @@ interface Workspace {
 
 interface Note {
     id: string;
-    userId: string;
+    workspaceId: string;
     order: number;
     title?: string;
     date: Date;
