@@ -3,7 +3,7 @@ import { env } from '@/lib/env';
 
 const API_URL = env().API_URL;
 
-export async function getNotesByWorkspaceId(workspaceId: string): Promise<Note[]> {
+export async function getNotes(workspaceId: string): Promise<Note[]> {
   console.log(`GET request to: ${API_URL}/workspace/${workspaceId}/notes`);
   const response = await fetch(`${API_URL}/workspace/${workspaceId}/notes`, {
     method: 'GET',
@@ -40,7 +40,7 @@ export async function createNote(note: Note): Promise<void> {
   return response.json();
 }
 
-export async function getNoteById(workspaceId: string, noteId: string): Promise<Note> {
+export async function getNote(workspaceId: string, noteId: string): Promise<Note> {
   console.log(`GET request to: ${API_URL}/workspace/${workspaceId}/notes/${noteId}`);
   const response = await fetch(`${API_URL}/workspace/${workspaceId}/notes/${noteId}`, {
     method: 'GET',
