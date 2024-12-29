@@ -17,12 +17,10 @@ function Note({ note, onDelete, onChangeColor }: NoteProps) {
 
   return (
     <div key={note.id} className={`break-inside-avoid mb-4 p-4 rounded-lg shadow hover:shadow-md transition-shadow bg-${note.color}-100 relative group`}>
-      <div className="flex justify-between items-center mb-2">
-        {/* Note title */}
-        {note.title && (
-          <h3 className="font-semibold">{note.title}</h3>
-        )}
-      </div>
+      {/* Note title */}
+      {note.title && (
+        <h3 className="font-semibold pb-2">{note.title}</h3>
+      )}
       {/* Note content */}
       <p className='whitespace-pre-wrap pb-5'>
         {note.content}
