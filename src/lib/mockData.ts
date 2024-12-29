@@ -56,7 +56,6 @@ function generateRandomNotes(count: number, userId: string): Note[] {
       color: getRandomColor(),
       content: getRandomContent(),
       title: getRandomInt(0, 1) ? getRandomTitle() : undefined,
-      order: i + 1
     });
   }
   return notes;
