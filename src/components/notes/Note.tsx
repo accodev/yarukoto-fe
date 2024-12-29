@@ -28,15 +28,15 @@ function Note({ note, onDelete, onChangeColor }: NoteProps) {
       {/* Note date */}
       <div className="flex opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
         <p className='text-xs text-gray-500' title={formattedDate}>{relativeDate}</p>
-      </div>
       {/* Note actions */}
-      <div className='absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000'>
+        <div className='absolute bottom-2 right-2 flex space-x-2'>
         {/* Color picker */}
         <ColorPicker selectedColor={note.color} onChangeColor={(color) => onChangeColor(note, color)} />
         {/* Delete button */}
         <button onClick={() => onDelete(note)} className="text-slate-500 transition-colors duration-200 hover:text-black">
           <FontAwesomeIcon icon={faTrash} />
         </button>
+        </div>
       </div>
     </div>
   );
