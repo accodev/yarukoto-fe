@@ -21,6 +21,22 @@ export async function getNotes(workspaceId: string): Promise<Note[]> {
   return response.json();
 }
 
+export async function deleteNote(note: Note): Promise<void> {
+  console.log(`DELETE request to: ${API_URL}/workspace/${note.workspaceId}/notes/${note.id}`);
+  const response = await fetch(`${API_URL}/workspace/${note.workspaceId}/notes/${note.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  console.log(`Response status: ${response.status}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to delete note');
+  }
+}
+
 export async function createNote(note: Note): Promise<void> {
   console.log(`POST request to: ${API_URL}/workspace/${note.workspaceId}/notes`);
   const response = await fetch(`${API_URL}/workspace/${note.workspaceId}/notes`, {

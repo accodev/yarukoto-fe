@@ -4,7 +4,7 @@ import { Note as NoteType } from '@/lib/types';
 import { useState, useEffect } from 'react';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
-import { getNotes } from '@/lib/api/notes';
+import { getNotes, deleteNote } from '@/lib/api/notes';
 
 function orderNotesByOrder(notes: NoteType[]) {
   return notes.sort((a, b) => a.order - b.order);
@@ -25,8 +25,14 @@ function Notes({ workspaceId }: NotesProps) {
     fetchData();
   }, [workspaceId]);
 
-  function handleDelete(id: string) {
-    setOrderedNotes(orderedNotes.filter(note => note.id !== id));
+  async function handleDelete(noteToDelete: NoteType) {
+    try {
+      await deleteNote(noteToDelete);
+    } catch (error) {
+      console.error('Failed to delete note:', error);
+    }
+    const notes = await getNotes(workspaceId);
+    setOrderedNotes(orderNotesByOrder(notes));
   }
 
   function handleAddNote(newNote: NoteType) {
@@ -34,8 +40,8 @@ function Notes({ workspaceId }: NotesProps) {
     setOrderedNotes(updatedNotes);
   }
 
-  function handleChangeColor(id: string, color: string) {
-    setOrderedNotes(orderedNotes.map(note => note.id === id ? { ...note, color } : note));
+  function handleChangeColor(note: NoteType, color: string) {
+    setOrderedNotes(orderedNotes.map(n => n.id === note.id ? { ...note, color } : note));
   }
 
   return (
@@ -48,7 +54,7 @@ function Notes({ workspaceId }: NotesProps) {
           <Note
             key={note.id}
             note={note}
-            onDelete={handleDelete}
+            onDelete={() => handleDelete(note)}
             onChangeColor={handleChangeColor}
           />
         ))}
