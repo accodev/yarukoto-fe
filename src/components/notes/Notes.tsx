@@ -29,11 +29,6 @@ function Notes({ workspaceId }: NotesProps) {
     setOrderedNotes(orderedNotes.filter(note => note.id !== id));
   }
 
-  function handleArchive(id: string) {
-    // Implement archive functionality here
-    console.log(`Archive note with id: ${id}`);
-  }
-
   function handleAddNote(newNote: NoteType) {
     const updatedNotes = [newNote, ...orderedNotes.map(note => ({ ...note, order: note.order + 1 }))];
     setOrderedNotes(updatedNotes);
@@ -54,7 +49,6 @@ function Notes({ workspaceId }: NotesProps) {
             key={note.id}
             note={note}
             onDelete={handleDelete}
-            onArchive={handleArchive}
             onChangeColor={handleChangeColor}
           />
         ))}

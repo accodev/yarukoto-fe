@@ -6,11 +6,10 @@ import { ColorPicker } from '../generic/ColorPicker';
 interface NoteProps {
   note: NoteType;
   onDelete: (id: string) => void;
-  onArchive: (id: string) => void;
   onChangeColor: (id: string, color: string) => void;
 }
 
-function Note({ note, onDelete, onArchive, onChangeColor }: NoteProps) {
+function Note({ note, onDelete, onChangeColor }: NoteProps) {
   return (
     <div key={note.id} className={`break-inside-avoid mb-4 p-4 rounded-lg shadow hover:shadow-md transition-shadow bg-${note.color}-100 relative group`}>
       <div className="flex justify-between items-center mb-2">
@@ -31,10 +30,6 @@ function Note({ note, onDelete, onArchive, onChangeColor }: NoteProps) {
       <div className='absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000'>
         {/* Color picker */}
         <ColorPicker selectedColor={note.color} onChangeColor={(color) => onChangeColor(note.id, color)} />
-        {/* Archive button */}
-        <button onClick={() => onArchive(note.id)} className="text-slate-500 transition-colors duration-200 hover:text-black">
-          <FontAwesomeIcon icon={faArchive} />
-        </button>
         {/* Delete button */}
         <button onClick={() => onDelete(note.id)} className="text-slate-500 transition-colors duration-200 hover:text-black">
           <FontAwesomeIcon icon={faTrash} />
