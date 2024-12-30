@@ -1,13 +1,15 @@
 'use client';
 
-import { Note as NoteType } from '@/lib/types';
 import { useState, useEffect } from 'react';
+import { Note as NoteType } from '@/lib/types';
+import { getNotes, deleteNote, createNote } from '@/lib/api/notes';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
-import { getNotesByWorkspaceId } from '@/lib/api/notes';
 
-function orderNotesByOrder(notes: NoteType[]) {
-  return notes.sort((a, b) => a.order - b.order);
+function orderNotesByDateDesc(notes: NoteType[]) {
+  return notes.sort((a, b) => {
+    return new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1;  
+  });
 }
 
 interface NotesProps {
@@ -15,32 +17,38 @@ interface NotesProps {
 }
 
 function Notes({ workspaceId }: NotesProps) {
-  const [orderedNotes, setOrderedNotes] = useState<NoteType[]>([]);
+  const [notes, setNotes] = useState<NoteType[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const notes = await getNotesByWorkspaceId(workspaceId);
-      setOrderedNotes(orderNotesByOrder(notes));
+      const notes = await getNotes(workspaceId);
+      setNotes(orderNotesByDateDesc(notes));
     }
     fetchData();
   }, [workspaceId]);
 
-  function handleDelete(id: string) {
-    setOrderedNotes(orderedNotes.filter(note => note.id !== id));
+  async function handleDelete(noteToDelete: NoteType) {
+    try {
+      await deleteNote(noteToDelete);
+    } catch (error) {
+      console.error('Failed to delete note:', error);
+    }
+    const notes = await getNotes(workspaceId);
+    setNotes(orderNotesByDateDesc(notes));
   }
 
-  function handleArchive(id: string) {
-    // Implement archive functionality here
-    console.log(`Archive note with id: ${id}`);
+  async function handleAddNote(newNote: NoteType) {
+    try {
+      await createNote(newNote);
+    } catch (error) {
+      console.error('Failed to create note:', error);
+    }
+    const notes = await getNotes(workspaceId);
+    setNotes(orderNotesByDateDesc(notes));
   }
 
-  function handleAddNote(newNote: NoteType) {
-    const updatedNotes = [newNote, ...orderedNotes.map(note => ({ ...note, order: note.order + 1 }))];
-    setOrderedNotes(updatedNotes);
-  }
-
-  function handleChangeColor(id: string, color: string) {
-    setOrderedNotes(orderedNotes.map(note => note.id === id ? { ...note, color } : note));
+  function handleChangeColor(note: NoteType, color: string) {
+    setNotes(notes.map(n => n.id === note.id ? { ...note, color } : note));
   }
 
   return (
@@ -49,12 +57,11 @@ function Notes({ workspaceId }: NotesProps) {
         <NewNote onAddNote={handleAddNote} workspaceId={workspaceId} />
       </div>
       <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
-        {orderedNotes.map(note => (
+        {notes.map(note => (
           <Note
             key={note.id}
             note={note}
-            onDelete={handleDelete}
-            onArchive={handleArchive}
+            onDelete={() => handleDelete(note)}
             onChangeColor={handleChangeColor}
           />
         ))}

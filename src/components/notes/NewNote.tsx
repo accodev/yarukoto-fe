@@ -21,12 +21,11 @@ function NewNote({ onAddNote, workspaceId }: NewNoteProps) {
     if (draftContent.trim()) {
       const newNote: NoteType = {
         id: `${Date.now()}`,
-        userId: workspaceId,
+        workspaceId: workspaceId,
         color: draftColor,
         content: draftContent,
         title: draftTitle || undefined,
-        date: new Date(),
-        order: 1
+        date: new Date()
       };
       onAddNote(newNote);
       setDraftContent('');

@@ -1,28 +1,41 @@
 import { Workspace } from '@/lib/types';
-import { workspace as mockWorkspace } from '@/lib/mockData';
+import { env } from '@/lib/env';
+
+const API_URL = env().API_URL;
 
 export async function getWorkspaceById(workspaceId: string): Promise<Workspace | null> {
-    // Mocked API call to get workspace by ID
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            if (mockWorkspace.id === workspaceId) {
-                resolve(mockWorkspace);
-            } else {
-                resolve(null);
-            }
-        }, 500);
-    });
+  console.log(`GET request to: ${API_URL}/workspace/${workspaceId}`);
+  const response = await fetch(`${API_URL}/workspace/${workspaceId}`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  console.log(`Response status: ${response.status}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch workspace');
+  }
+
+  return response.json();
 }
 
-export async function registerWorkspace(newWorkspace: Workspace): Promise<void> {
-    // Mocked API call to register a new workspace
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        mockWorkspace.id = newWorkspace.id;
-        mockWorkspace.name = newWorkspace.name;
-        mockWorkspace.email = newWorkspace.email;
-        resolve();
-      }, 500);
-    });
+export async function registerWorkspace(workspace: { id: string; name: string; email: string }): Promise<void> {
+  console.log(`POST request to: ${API_URL}/workspace`);
+  const response = await fetch(`${API_URL}/workspace`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(workspace),
+  });
+
+  console.log(`Response status: ${response.status}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to register workspace');
   }
-  
+
+  return response.json();
+}

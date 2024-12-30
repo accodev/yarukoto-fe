@@ -52,11 +52,10 @@ function generateRandomNotes(count: number, userId: string): Note[] {
     notes.push({
       date: getRandomDate(new Date(2020, 0, 1), new Date()),
       id: `${i + 1}`,
-      userId: userId,
+      workspaceId: userId,
       color: getRandomColor(),
       content: getRandomContent(),
       title: getRandomInt(0, 1) ? getRandomTitle() : undefined,
-      order: i + 1
     });
   }
   return notes;
