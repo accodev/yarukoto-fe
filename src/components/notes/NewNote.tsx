@@ -25,8 +25,7 @@ function NewNote({ onAddNote, workspaceId }: NewNoteProps) {
         color: draftColor,
         content: draftContent,
         title: draftTitle || undefined,
-        date: new Date(),
-        order: 1
+        date: new Date()
       };
       onAddNote(newNote);
       setDraftContent('');
