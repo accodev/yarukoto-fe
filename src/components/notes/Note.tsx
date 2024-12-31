@@ -8,10 +8,10 @@ import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 interface NoteProps {
   note: NoteType;
   onDelete: (note: NoteType) => void;
-  onChangeColor: (note: NoteType, color: string) => void;
+  onUpdate: (note: NoteType) => void;
 }
 
-function Note({ note, onDelete, onChangeColor }: NoteProps) {
+function Note({ note, onDelete, onUpdate }: NoteProps) {
   const formattedDate = format(new Date(note.date), 'yyyy-MM-dd HH:mm:ss');
   const relativeDate = formatDistanceToNow(new Date(note.date), { addSuffix: true });
 
@@ -28,14 +28,14 @@ function Note({ note, onDelete, onChangeColor }: NoteProps) {
       {/* Note date */}
       <div className="flex opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
         <p className='text-xs text-gray-500' title={formattedDate}>{relativeDate}</p>
-      {/* Note actions */}
+        {/* Note actions */}
         <div className='absolute bottom-2 right-2 flex space-x-2'>
-        {/* Color picker */}
-        <ColorPicker selectedColor={note.color} onChangeColor={(color) => onChangeColor(note, color)} />
-        {/* Delete button */}
-        <button onClick={() => onDelete(note)} className="text-slate-500 transition-colors duration-200 hover:text-black">
-          <FontAwesomeIcon icon={faTrash} />
-        </button>
+          {/* Color picker */}
+          <ColorPicker selectedColor={note.color} onChangeColor={(color) => { note.color = color; onUpdate(note); }} />
+          {/* Delete button */}
+          <button onClick={() => onDelete(note)} className="text-slate-500 transition-colors duration-200 hover:text-black">
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Note as NoteType } from '@/lib/types';
-import { getNotes, deleteNote, createNote } from '@/lib/api/notes';
+import { getNotes, deleteNote, createNote, updateNote } from '@/lib/api/notes';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
 
@@ -37,7 +37,7 @@ function Notes({ workspaceId }: NotesProps) {
     setNotes(orderNotesByDateDesc(notes));
   }
 
-  async function handleAddNote(newNote: NoteType) {
+  async function handleAdd(newNote: NoteType) {
     try {
       await createNote(newNote);
     } catch (error) {
@@ -47,14 +47,20 @@ function Notes({ workspaceId }: NotesProps) {
     setNotes(orderNotesByDateDesc(notes));
   }
 
-  function handleChangeColor(note: NoteType, color: string) {
-    setNotes(notes.map(n => n.id === note.id ? { ...note, color } : note));
+  async function handleUpdate(note: NoteType) {
+    try {
+      await updateNote(note);
+    } catch (error) {
+      console.error('Failed to update note:', error);
+    }
+    const notes = await getNotes(workspaceId);
+    setNotes(orderNotesByDateDesc(notes));
   }
 
   return (
     <div>
       <div className="flex justify-center mb-4">
-        <NewNote onAddNote={handleAddNote} workspaceId={workspaceId} />
+        <NewNote onAddNote={handleAdd} workspaceId={workspaceId} />
       </div>
       <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
         {notes.map(note => (
@@ -62,7 +68,7 @@ function Notes({ workspaceId }: NotesProps) {
             key={note.id}
             note={note}
             onDelete={() => handleDelete(note)}
-            onChangeColor={handleChangeColor}
+            onUpdate={handleUpdate}
           />
         ))}
       </div>

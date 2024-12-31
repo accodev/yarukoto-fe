@@ -37,7 +37,7 @@ export async function deleteNote(note: Note): Promise<void> {
   }
 }
 
-export async function createNote(note: Note): Promise<void> {
+export async function createNote(note: Note): Promise<Note> {
   console.log(`POST request to: ${API_URL}/workspace/${note.workspaceId}/notes`);
   const response = await fetch(`${API_URL}/workspace/${note.workspaceId}/notes`, {
     method: 'POST',
@@ -52,6 +52,8 @@ export async function createNote(note: Note): Promise<void> {
   if (!response.ok) {
     throw new Error('Failed to create note');
   }
+
+  return response.json();
 }
 
 export async function getNote(workspaceId: string, noteId: string): Promise<Note> {
@@ -72,12 +74,12 @@ export async function getNote(workspaceId: string, noteId: string): Promise<Note
   return response.json();
 }
 
-export async function updateNote(workspaceId: string, noteId: string, note: Note): Promise<void> {
-  console.log(`PUT request to: ${API_URL}/workspace/${workspaceId}/notes/${noteId}`);
-  const response = await fetch(`${API_URL}/workspace/${workspaceId}/notes/${noteId}`, {
+export async function updateNote(note: Note): Promise<void> {
+  console.log(`PUT request to: ${API_URL}/workspace/${note.workspaceId}/notes/${note.id}`);
+  const response = await fetch(`${API_URL}/workspace/${note.workspaceId}/notes/${note.id}`, {
     method: 'PUT',
     headers: {
-      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
   });
