@@ -9,15 +9,16 @@ const colors = ["indigo", "yellow", "blue", "purple", "green", "red"];
 interface ColorPickerProps {
   selectedColor: string;
   onChangeColor: (color: string) => void;
+  className: string;
 }
 
-function ColorPicker({ selectedColor, onChangeColor }: ColorPickerProps) {
+function ColorPicker({ selectedColor, onChangeColor, className }: ColorPickerProps) {
   const [isColorPickerVisible, setIsColorPickerVisible] = useState(false);
 
   return (
     <div className='relative z-10'>
       <button
-        className='text-slate-500 transition-colors duration-200 hover:text-black'
+        className={className}
         onClick={() => setIsColorPickerVisible(!isColorPickerVisible)}
       >
         <FontAwesomeIcon icon={faPalette} />
@@ -27,7 +28,7 @@ function ColorPicker({ selectedColor, onChangeColor }: ColorPickerProps) {
           {colors.map(color => (
             <button
               key={color}
-              className={`w-6 h-6 rounded-full ${selectedColor === color ? `ring-2 ring-indigo-100` : ''} bg-${color}-100`}
+              className={`w-6 h-6 rounded-full ${selectedColor === color ? `ring-2 ring-slate-500` : ''} bg-${color}-100 transition duration-300 ease-in-out hover:ring-2 hover:ring-slate-500`}
               onClick={() => {
                 onChangeColor(color);
                 setIsColorPickerVisible(false);

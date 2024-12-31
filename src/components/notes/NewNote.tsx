@@ -59,7 +59,7 @@ function NewNote({ onAddNote, workspaceId }: NewNoteProps) {
       {isDraftVisible && (
         <div className='flex justify-end mt-2'>
           {/* Color picker */}
-          <ColorPicker selectedColor={draftColor} onChangeColor={setDraftColor} />
+          <ColorPicker selectedColor={draftColor} onChangeColor={setDraftColor} className="text-slate-500 transition-colors duration-200 hover:text-black px-2" />
           {/* Add note button */}
           <button onClick={handleAddNote} className="text-slate-500 transition-colors duration-200 hover:text-black px-2">
             <FontAwesomeIcon icon={faPlus} />

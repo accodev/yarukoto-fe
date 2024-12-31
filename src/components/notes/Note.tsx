@@ -31,7 +31,7 @@ function Note({ note, onDelete, onUpdate }: NoteProps) {
         {/* Note actions */}
         <div className='absolute bottom-2 right-2 flex space-x-2'>
           {/* Color picker */}
-          <ColorPicker selectedColor={note.color} onChangeColor={(color) => { note.color = color; onUpdate(note); }} />
+          <ColorPicker selectedColor={note.color} onChangeColor={(color) => { note.color = color; onUpdate(note); }} className="text-slate-500 transition-colors duration-200 hover:text-black" />
           {/* Delete button */}
           <button onClick={() => onDelete(note)} className="text-slate-500 transition-colors duration-200 hover:text-black">
             <FontAwesomeIcon icon={faTrash} />
