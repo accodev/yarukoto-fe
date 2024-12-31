@@ -1,14 +1,13 @@
-# Yarukoto - The Next Generation of Note-Taking
+# Yarukoto - A Google Keep insipired not taking app
 
-Yarukoto is a note-taking application that allows users to easily share notes using unique user IDs. This approach simplifies the login process and enables seamless note sharing without the need for passwords.
+Yarukoto is a note-taking application that allows users to easily share notes using unique workspace IDs. This approach simplifies the login process and enables seamless note sharing without the need for passwords.
 
 ## Features
 
-- **Unique User IDs**: Users log in using a unique user ID, making it easy to share notes.
-- **Note Sharing**: Notes are tied to the user ID, allowing for easy sharing between users.
-- **Random Note Generation**: Generate random notes with random titles, content, and colors.
+- **Unique Workspace IDs**: Users join a workspace in using a unique workspace ID, making it easy to share notes.
+- **Note Sharing**: Notes are tied to the workspace ID, allowing for easy sharing between users.
 - **Color Picker**: Change the color of notes using a color picker.
-- **Note Management**: Add, delete, and archive notes.
+- **Note Management**: Add and delete.
 
 ## Screenshots
 
