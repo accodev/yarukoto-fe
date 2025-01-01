@@ -7,7 +7,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "yarukoto - The next generation of note-taking",
+  title: "yarukoto - A note taking app",
 };
 
 export default function RootLayout({
