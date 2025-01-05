@@ -1,28 +1,61 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { Note as NoteType } from '@/lib/types';
 import { getNotes, deleteNote, createNote, updateNote } from '@/lib/api/notes';
 import { NewNote } from './NewNote';
 import { Note } from './Note';
+import { ReactSortable } from 'react-sortablejs';
 
-function orderNotesByDateDesc(notes: NoteType[]) {
-  return notes.sort((a, b) => {
-    return new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1;  
-  }).reverse();
-}
+// This is just like a normal component, but now has a ref.
+const CustomComponent = forwardRef<HTMLDivElement, any>((props, ref) => {
+  return <div ref={ref}>{props.children}</div>;
+});
 
 interface NotesProps {
   workspaceId: string;
 }
 
+interface NoteUi {
+  id: number;
+  realId: number;
+  workspaceId: string;
+  title?: string;
+  date: Date;
+  content: string;
+  color: string;
+}
+
+function convertToUi(note: NoteType): NoteUi {
+  return {
+    id: note.id ?? 0,
+    realId: note.id ?? 0,
+    workspaceId: note.workspaceId,
+    title: note.title,
+    date: new Date(note.date),
+    content: note.content,
+    color: note.color,
+  };
+}
+
+function convertToDto(note: NoteUi): NoteType {
+  return {
+    id: note.id,
+    workspaceId: note.workspaceId,
+    title: note.title,
+    date: note.date,
+    content: note.content,
+    color: note.color,
+  };
+}
+
 function Notes({ workspaceId }: NotesProps) {
-  const [notes, setNotes] = useState<NoteType[]>([]);
+  const [notes, setNotes] = useState<NoteUi[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       const notes = await getNotes(workspaceId);
-      setNotes(orderNotesByDateDesc(notes));
+      setNotes(notes.map(convertToUi));
     }
     fetchData();
   }, [workspaceId]);
@@ -34,7 +67,7 @@ function Notes({ workspaceId }: NotesProps) {
       console.error('Failed to delete note:', error);
     }
     const notes = await getNotes(workspaceId);
-    setNotes(orderNotesByDateDesc(notes));
+    setNotes(notes.map(convertToUi));
   }
 
   async function handleAdd(newNote: NoteType) {
@@ -44,7 +77,7 @@ function Notes({ workspaceId }: NotesProps) {
       console.error('Failed to create note:', error);
     }
     const notes = await getNotes(workspaceId);
-    setNotes(orderNotesByDateDesc(notes));
+    setNotes(notes.map(convertToUi));
   }
 
   async function handleUpdate(note: NoteType) {
@@ -54,7 +87,7 @@ function Notes({ workspaceId }: NotesProps) {
       console.error('Failed to update note:', error);
     }
     const notes = await getNotes(workspaceId);
-    setNotes(orderNotesByDateDesc(notes));
+    setNotes(notes.map(convertToUi));
   }
 
   return (
@@ -63,14 +96,25 @@ function Notes({ workspaceId }: NotesProps) {
         <NewNote onAddNote={handleAdd} workspaceId={workspaceId} />
       </div>
       <div className='columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4'>
-        {notes.map(note => (
-          <Note
-            key={note.id}
-            note={note}
-            onDelete={() => handleDelete(note)}
-            onUpdate={handleUpdate}
-          />
-        ))}
+        <ReactSortable 
+          group="notes"
+          animation={200}
+          swapThreshold={0.65}
+          delayOnTouchStart={true}
+          delay={2}
+          tag={CustomComponent} 
+          list={notes} 
+          setList={setNotes}
+          onUpdate={(evt, sortable, store) => { console.log('onAdd', evt, sortable, store); }}>
+          {notes.map((note) => (
+            <Note
+              key={note.id}
+              note={note}
+              onDelete={() => handleDelete(note)}
+              onUpdate={handleUpdate}
+            />
+          ))}
+        </ReactSortable>
       </div>
     </div>
   );
