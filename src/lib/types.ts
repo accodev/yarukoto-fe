@@ -5,7 +5,7 @@ interface Workspace {
 }
 
 interface Note {
-    id: string;
+    id?: number;
     workspaceId: string;
     title?: string;
     date: Date;

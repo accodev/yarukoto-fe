@@ -20,7 +20,7 @@ function NewNote({ onAddNote, workspaceId }: NewNoteProps) {
   function handleAddNote() {
     if (draftContent.trim()) {
       const newNote: NoteType = {
-        id: `${Date.now()}`,
+        id: undefined,
         workspaceId: workspaceId,
         color: draftColor,
         content: draftContent,

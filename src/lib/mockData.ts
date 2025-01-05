@@ -51,7 +51,7 @@ function generateRandomNotes(count: number, userId: string): Note[] {
   for (let i = 0; i < count; i++) {
     notes.push({
       date: getRandomDate(new Date(2020, 0, 1), new Date()),
-      id: `${i + 1}`,
+      id: i + 1,
       workspaceId: userId,
       color: getRandomColor(),
       content: getRandomContent(),

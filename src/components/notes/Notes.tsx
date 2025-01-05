@@ -9,7 +9,7 @@ import { Note } from './Note';
 function orderNotesByDateDesc(notes: NoteType[]) {
   return notes.sort((a, b) => {
     return new Date(a.date).getTime() > new Date(b.date).getTime() ? 1 : -1;  
-  });
+  }).reverse();
 }
 
 interface NotesProps {
