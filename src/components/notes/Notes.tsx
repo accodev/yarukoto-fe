@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, forwardRef } from 'react';
+import debounce from 'lodash/debounce';
 import { Note as NoteType } from '@/lib/types';
 import { getNotes, deleteNote, createNote, updateNote } from '@/lib/api/notes';
 import { NewNote } from './NewNote';
@@ -17,8 +18,8 @@ interface NotesProps {
 }
 
 interface NoteUi {
-  id: number;
-  realId: number;
+  id: number; // this is the order of the note
+  idOnDb: number;
   workspaceId: string;
   title?: string;
   date: Date;
@@ -28,8 +29,8 @@ interface NoteUi {
 
 function convertToUi(note: NoteType): NoteUi {
   return {
-    id: note.id ?? 0,
-    realId: note.id ?? 0,
+    id: note.order,
+    idOnDb: note.id ?? 0,
     workspaceId: note.workspaceId,
     title: note.title,
     date: new Date(note.date),
@@ -40,7 +41,8 @@ function convertToUi(note: NoteType): NoteUi {
 
 function convertToDto(note: NoteUi): NoteType {
   return {
-    id: note.id,
+    id: note.idOnDb,
+    order: note.id,
     workspaceId: note.workspaceId,
     title: note.title,
     date: note.date,
@@ -90,6 +92,28 @@ function Notes({ workspaceId }: NotesProps) {
     setNotes(notes.map(convertToUi));
   }
 
+  async function handleUpdateNotes(notes: NoteUi[]) {
+    try {
+      if(notes.length === 0) return;
+      notes
+        .map(convertToDto)
+        .forEach(async (note, idx) => {
+          note.order = idx + 1;
+          await updateNote(note);
+        });
+    } catch (error) {
+      console.error('Failed to update notes:', error);
+    }
+  }
+
+  function handleSorted(notes: NoteUi[]): void {
+    console.log('Sorted:', notes);
+    setNotes(notes);
+    debounceHandleUpdateNotes(notes);
+  }
+
+  var debounceHandleUpdateNotes = debounce(handleUpdateNotes, 1000);
+
   return (
     <div>
       <div className="flex justify-center mb-4">
@@ -103,14 +127,14 @@ function Notes({ workspaceId }: NotesProps) {
           delayOnTouchStart={true}
           delay={2}
           tag={CustomComponent} 
-          list={notes} 
-          setList={setNotes}
-          onUpdate={(evt, sortable, store) => { console.log('onAdd', evt, sortable, store); }}>
+          list={notes}
+          setList={handleSorted}
+          >
           {notes.map((note) => (
             <Note
               key={note.id}
-              note={note}
-              onDelete={() => handleDelete(note)}
+              note={convertToDto(note)}
+              onDelete={() => handleDelete(convertToDto(note))}
               onUpdate={handleUpdate}
             />
           ))}
@@ -121,3 +145,4 @@ function Notes({ workspaceId }: NotesProps) {
 }
 
 export { Notes };
+
